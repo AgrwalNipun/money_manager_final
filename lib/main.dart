@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:money_manager_final/providerr.dart';
 import 'homepage.dart';
 import 'package:provider/provider.dart';
-
+//I HOPE THIS GETS UPLOADED TO GIT
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.green,

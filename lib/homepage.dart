@@ -3,6 +3,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:money_manager_final/add_transaction.dart';
 import 'package:money_manager_final/functions.dart';
+import 'package:money_manager_final/graph_test.dart';
 import 'package:money_manager_final/providerr.dart';
 import 'package:money_manager_final/sms_tester.dart';
 import 'package:provider/provider.dart';
@@ -26,12 +27,8 @@ class _HomepageState extends State<Homepage> {
   int selectedIndex = 0;
   List<Widget> pages = [
     NewWidget(),
-    Placeholder(),
-    FutureBuilder(
-        future: prefsGet(),
-        builder: (context, snapshot) {
-          return Placeholder();
-        }),
+    BarChartSample4(),
+     Placeholder()       
   ];
 
   // SharedPreferences prefs;
@@ -82,13 +79,10 @@ class _HomepageState extends State<Homepage> {
               ),
             ),
             Icon(
-              Icons.abc_outlined,
+              Icons.bolt,
               size: 20,
             ),
-            Icon(
-              Icons.abc_outlined,
-              size: 20,
-            ),
+            
           ],
           onTap: (value) {
             selectedIndex = value;
@@ -98,7 +92,7 @@ class _HomepageState extends State<Homepage> {
         body: FutureBuilder(
             future: prefsGet(),
             builder: (context, snapshot) {
-              return NewWidget();
+              return pages[selectedIndex];
             }),
       ),
     );
@@ -119,121 +113,123 @@ class NewWidget extends StatefulWidget {
 class _NewWidgetState extends State<NewWidget> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Column(
-                children: [
-                  Text(
-                    'Today\'s total',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    '${calculate_daily()} \$',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  Text(
-                    'Monthly Total',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    '${calculate_monthly()} \$ ',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                border: Border.all(width: 2),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(5),
-                ),
-                // color: Theme.of(context).secondaryHeaderColor,
-              ),
-              child: ListView.builder(
-                itemCount: time.length,
-                itemBuilder: (context, index) => Container(
-                  margin: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 2),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(5),
-                    ),
-                    // color: Theme.of(context).primaryColor,
-                  ),
-                  child: ListTile(
-                    leading: Text(
-                      method[index],
-                      style: TextStyle(fontSize: 15),
-                    ),
-                    title: Text(
-                      desc[index].toUpperCase(),
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                    ),
-                    subtitle: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: Text(
-                        '${time[index]}  ${date[index]}',
-                        style: TextStyle(fontSize: 16),
+    return Consumer<Providerr>(      
+      builder:(context,value,child)=> SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    Text(
+                      'Today\'s total',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    trailing: SizedBox(
-                      width: 150,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            amount[index],
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: type[index] == "Debit"
-                                    ? const Color.fromARGB(255, 114, 12, 5)
-                                    : const Color.fromARGB(255, 64, 238, 72)),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              final del = context.read<Providerr>();
-                              del.delete(index);
-                              Future.delayed(Duration(milliseconds: 500));
-                              setState(() {});
-                            },
-                            child: Icon(Icons.delete),
-                          ),
-                        ],
+                    Text(
+                      '${calculate_daily()} \$',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text(
+                      'Monthly Total',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      '${calculate_monthly()} \$ ',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  border: Border.all(width: 2),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(5),
+                  ),
+                  // color: Theme.of(context).secondaryHeaderColor,
+                ),
+                child: ListView.builder(
+                  itemCount: time.length,
+                  itemBuilder: (context, index) => Container(
+                    margin: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 2),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(5),
+                      ),
+                      // color: Theme.of(context).primaryColor,
+                    ),
+                    child: ListTile(
+                      leading: Text(
+                        method[index],
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      title: Text(
+                        desc[index].toUpperCase(),
+                        style:
+                            TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                      ),
+                      subtitle: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Text(
+                          '${time[index]}  ${date[index]}',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                      trailing: SizedBox(
+                        width: 150,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              amount[index],
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: type[index] == "Debit"
+                                      ? const Color.fromARGB(255, 114, 12, 5)
+                                      : const Color.fromARGB(255, 64, 238, 72)),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                final del = context.read<Providerr>();
+                                del.delete(index);
+                                Future.delayed(Duration(milliseconds: 500));
+                                setState(() {});
+                              },
+                              child: Icon(Icons.delete),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

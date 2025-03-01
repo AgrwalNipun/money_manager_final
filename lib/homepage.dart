@@ -224,7 +224,7 @@ class _NewWidgetState extends State<NewWidget> {
                         ),
                       ),
                     ),
-                  ),
+                ),
                 ),
               ),
             ),

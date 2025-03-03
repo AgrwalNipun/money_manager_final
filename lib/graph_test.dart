@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 // import 'package:fl_chart_app/presentation/resources/app_resources.dart';
 // import 'package:fl_chart_app/util/extensions/color_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:money_manager_final/default_values.dart';
 import 'package:money_manager_final/providerr.dart';
 import 'package:provider/provider.dart';
 
@@ -66,64 +67,23 @@ class BarChartSample4State extends State<BarChartSample4> {
   Widget build(BuildContext context) {
     return Consumer<Providerr>(
 
-      builder: (context,value,child)=>AspectRatio(
-        aspectRatio: 1.66,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 16),
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              final barsSpace = 4.0 * constraints.maxWidth / 400;
-              final barsWidth = 8.0 * constraints.maxWidth / 400;
-              return BarChart(
-                BarChartData(
-                  alignment: BarChartAlignment.center,
-                  barTouchData: BarTouchData(
-                    enabled: false,
-                  ),
-                  titlesData: FlTitlesData(
-                    show: true,
-                    bottomTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        reservedSize: 28,
-                        getTitlesWidget: bottomTitles,
-                      ),
-                    ),
-                    leftTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        reservedSize: 40,
-                        getTitlesWidget: leftTitles,
-                      ),
-                    ),
-                    topTitles: const AxisTitles(
-                      sideTitles: SideTitles(showTitles: false),
-                    ),
-                    rightTitles: const AxisTitles(
-                      sideTitles: SideTitles(showTitles: false),
-                    ),
-                  ),
-                  gridData: FlGridData(
-                    show: true,
-                    checkToShowHorizontalLine: (value) => value % 10 == 0,
-                    getDrawingHorizontalLine: (value) => FlLine(
-                      color: Colors.red,
-                      strokeWidth: 1,
-                    ),
-                    drawVerticalLine: false,
-                  ),
-                  borderData: FlBorderData(
-                    show: false,
-                  ),
-                  groupsSpace: barsSpace,
-                  barGroups: getData(barsWidth, barsSpace),
-                ),
-              );
-            },
+      builder: (context,value,child)=>Container(
+        height: MediaQuery.of(context).size.height/3,
+        padding:EdgeInsets.all(10),
+        child: PieChart(
+          
+          PieChartData(
+            sections:showData(),
+            // [
+            //   // PieChartSectionData(value:1),
+            //   // PieChartSectionData(value:100),
+            //   // PieChartSectionData(value:100),
+            //   // PieChartSectionData(value:100),
+            // ],
           ),
         ),
-      ),
-    );
+      )
+       );
   }
 
   List<BarChartGroupData> getData(double barsWidth, double barsSpace) {
@@ -353,5 +313,19 @@ class BarChartSample4State extends State<BarChartSample4> {
         ],
       ),
     ];
+  }
+  List<PieChartSectionData> showData(){
+ List<PieChartSectionData> pieData =  [];
+  for(int i =0;i<amount.length;i++){
+    pieData.add(
+      PieChartSectionData(
+        value : double.parse(amount[i]),
+        title: desc[i],
+        color: type[i]=="Credit"?Colors.green:Colors.red,
+      )
+
+    );
+  }
+return pieData;
   }
 }

@@ -73,7 +73,7 @@ class BarChartSample4State extends State<BarChartSample4> {
         child: PieChart(
           
           PieChartData(
-            sections:showData(),
+            sections:showData2(),
             // [
             //   // PieChartSectionData(value:1),
             //   // PieChartSectionData(value:100),
@@ -328,4 +328,41 @@ class BarChartSample4State extends State<BarChartSample4> {
   }
 return pieData;
   }
+  List<PieChartSectionData> showData2(){
+ List<PieChartSectionData> pieData2 =  [];
+ double debit =0;
+ double credit =0;
+  for(int i =0;i<amount.length;i++){
+    // pieData.add(
+    //   PieChartSectionData(
+    //     value : double.parse(amount[i]),
+    //     title: desc[i],
+    //     color: type[i]=="Credit"?Colors.green:Colors.red,
+    //   )
+
+    // );
+    if(type[i]=="Credit"){
+      credit+=double.parse(amount[i]);
+
+    }
+    else{
+      debit+=double.parse(amount[i]);
+    }
+  }
+  pieData2.add(
+ PieChartSectionData(
+        value : credit,
+        title: "CREDIT",
+        color: Colors.green,
+      )
+    );
+    pieData2.add(
+ PieChartSectionData(
+        value : debit,
+        title: "DEBIT",
+        color: Colors.red,
+      )
+    );
+return pieData2;}
+
 }

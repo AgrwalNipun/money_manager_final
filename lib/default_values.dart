@@ -4,7 +4,7 @@ List<String> desc = ['pizza', 'goggles', 'watch'];
 
 List<String> date = ['12/11/2024', '11/9/2024', '3/7/2024'];
 
-List<String> time = ['12:19', '17:57', '23:01'];
+List<String> time = ['12:89', '17:57', '23:01'];
 
 List<String> method = [m1, m2, m3];
 String m1 = "Cash";

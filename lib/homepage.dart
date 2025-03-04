@@ -7,6 +7,7 @@ import 'package:money_manager_final/graph_test.dart';
 import 'package:money_manager_final/providerr.dart';
 import 'package:money_manager_final/sms_tester.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 import 'default_values.dart';
 
@@ -45,55 +46,65 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Providerr>(
-      builder: (context, value, child) => Scaffold(
-        appBar: AppBar(
-          leading: Container(
-              margin: EdgeInsets.all(5),
-              child: Icon(
-                Icons.monetization_on,
-                size: 30,
-              )),
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => AddTransaction()));
-              },
-              icon: Icon(Icons.add),
-            ),
-          ],
-        ),
-        bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: Colors.white,
-          buttonBackgroundColor: Colors.white38,
-          height: 50,
-          items: [
-            Container(
-              padding: EdgeInsets.all(3),
-              decoration:
-                  BoxDecoration(shape: BoxShape.circle, border: Border.all()),
-              child: Icon(
-                Icons.abc_outlined,
+    return FutureBuilder(
+      future:SharedPreferences.getInstance(),
+      builder: (context,future) =>
+      future.data==null?
+      CircularProgressIndicator()
+      :Consumer<Providerr>(
+        builder: (context, value, child) => Scaffold(
+          backgroundColor: Colors.green.shade50,
+          appBar: AppBar(
+            backgroundColor: Colors.green.shade50,
+            title: Center(
+              child: Text("MONEY MANAGER",style: TextStyle(fontWeight: FontWeight.bold),)),
+            leading: Container(
+                margin: EdgeInsets.all(5),
+                child: Icon(
+                  Icons.monetization_on,
+                  size: 30,
+                )),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => AddTransaction()));
+                },
+                icon: Icon(Icons.add),
+              ),
+            ],
+          ),
+          bottomNavigationBar: CurvedNavigationBar(
+            backgroundColor: Colors.green.shade50,
+            buttonBackgroundColor: Colors.green.shade50,
+            height: 50,
+            items: [
+              Container(
+                padding: EdgeInsets.all(3),
+                decoration:
+                    BoxDecoration(shape: BoxShape.circle, border: Border.all()),
+                child: Icon(
+                  Icons.abc_outlined,
+                  size: 20,
+                ),
+              ),
+              Icon(
+                Icons.bolt,
                 size: 20,
               ),
-            ),
-            Icon(
-              Icons.bolt,
-              size: 20,
-            ),
-            
-          ],
-          onTap: (value) {
-            selectedIndex = value;
-            setState(() {});
-          },
+              
+            ],
+            onTap: (value) {
+              selectedIndex = value;
+              setState(() {});
+            },
+          ),
+          body: FutureBuilder(
+              future: prefsGet(),
+              builder: (context, snapshot) {
+                return pages[selectedIndex];
+              }),
         ),
-        body: FutureBuilder(
-            future: prefsGet(),
-            builder: (context, snapshot) {
-              return pages[selectedIndex];
-            }),
       ),
     );
   }
@@ -206,9 +217,9 @@ class _NewWidgetState extends State<NewWidget> {
                             Text(
                               amount[index],
                               style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 20,
                                   color: type[index] == "Debit"
-                                      ? const Color.fromARGB(255, 114, 12, 5)
+                                      ? const Color.fromARGB(255, 241, 57, 44)
                                       : const Color.fromARGB(255, 64, 238, 72)),
                             ),
                             TextButton(

@@ -67,21 +67,37 @@ class BarChartSample4State extends State<BarChartSample4> {
   Widget build(BuildContext context) {
     return Consumer<Providerr>(
 
-      builder: (context,value,child)=>Container(
-        height: MediaQuery.of(context).size.height/3,
-        padding:EdgeInsets.all(10),
-        child: PieChart(
-          
-          PieChartData(
-            sections:showData2(),
-            // [
-            //   // PieChartSectionData(value:1),
-            //   // PieChartSectionData(value:100),
-            //   // PieChartSectionData(value:100),
-            //   // PieChartSectionData(value:100),
-            // ],
+      builder: (context,value,child)=>
+      amount.isEmpty?
+            Center(
+              child: Text("No transactions till yet \nAdd a transaction to get started",style:TextStyle(fontSize: 20),textAlign: TextAlign.center,))
+            :Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+
+            padding: const EdgeInsets.fromLTRB(20,0,0,0),
+            child: Text("Your Spending :",style: TextStyle(fontSize: 24,
+            fontWeight: FontWeight.bold,
+            ),),
           ),
-        ),
+          Container(
+            height: MediaQuery.of(context).size.height/3,
+            padding:EdgeInsets.fromLTRB(20,20,0,0),
+            child: 
+            PieChart(
+              PieChartData(
+                sections:showData2(),
+                // [
+                //   // PieChartSectionData(value:1),
+                //   // PieChartSectionData(value:100),
+                //   // PieChartSectionData(value:100),
+                //   // PieChartSectionData(value:100),
+                // ],
+              ),
+            ),
+          ),
+        ],
       )
        );
   }

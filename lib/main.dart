@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:money_manager_final/graph_test.dart';
+// import 'package:money_manager_final/graph_test.dart';
 import 'package:money_manager_final/providerr.dart';
 import 'homepage.dart';
 import 'package:provider/provider.dart';
 //I HOPE THIS GETS UPLOADED TO GIT
 void main() {
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.green,
-  ));
+
   runApp(
       ChangeNotifierProvider(create: (context) => Providerr(), child: MyApp()));
 }
@@ -51,8 +49,9 @@ class _MyAppState extends State<MyApp> {
         //   seedColor: const Color.fromARGB(255, 69, 66, 74),
         // ),
         useMaterial3: true,
+        fontFamily: 'JetBrains_Mono',
       ),
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
       home: Homepage(),
     );

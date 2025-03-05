@@ -88,11 +88,14 @@ class _HomepageState extends State<Homepage> {
                   size: 20,
                 ),
               ),
-              Icon(
-                Icons.bolt,
-                size: 20,
+              // Icon(
+              //   Icons.bolt,
+              //   size: 20,
+              // ),
+              ImageIcon(
+                AssetImage('lib/images_and_font/images/bar-chart.png'),
               ),
-              
+
             ],
             onTap: (value) {
               selectedIndex = value;

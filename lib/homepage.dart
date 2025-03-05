@@ -79,21 +79,17 @@ class _HomepageState extends State<Homepage> {
             buttonBackgroundColor: Colors.green.shade50,
             height: 50,
             items: [
-              Container(
-                padding: EdgeInsets.all(3),
-                decoration:
-                    BoxDecoration(shape: BoxShape.circle, border: Border.all()),
-                child: Icon(
-                  Icons.abc_outlined,
-                  size: 20,
-                ),
+              ImageIcon(
+                AssetImage('lib/images_and_font/images/home2.png'),
+                size: 20,
               ),
               // Icon(
               //   Icons.bolt,
               //   size: 20,
               // ),
               ImageIcon(
-                AssetImage('lib/images_and_font/images/bar-chart.png'),
+                AssetImage('lib/images_and_font/images/bar-chart2.png'),
+                size: 25,
               ),
 
             ],
@@ -184,7 +180,13 @@ class _NewWidgetState extends State<NewWidget> {
                   ),
                   // color: Theme.of(context).secondaryHeaderColor,
                 ),
-                child: ListView.builder(
+                child: 
+                time.isEmpty?
+                Center(child:Text("No Transactions added! \nAdd Transactions To Proceed",
+                textAlign: TextAlign.center,
+                ))
+                :
+                ListView.builder(
                   itemCount: time.length,
                   itemBuilder: (context, index) => Container(
                     margin: EdgeInsets.all(10),

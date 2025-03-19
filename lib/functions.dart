@@ -68,7 +68,7 @@ double calculate_monthly() {
   // print(currDate1);
   double total = 0;
   for (int i = 0; i < date.length; i++) {
-    if (currMonth == date[i].substring(3)) {
+    if (currMonth == date[i].substring(3,4)) {
       if (type[i] == 'Credit') {
         total += double.parse(amount[i]);
       } else {
